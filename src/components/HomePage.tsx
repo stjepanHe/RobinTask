@@ -41,7 +41,7 @@ export const HomePage = () => {
                   value={selectedUser}
                   onChange={(e) => setSelectedUser(Number(e.target.value))}
                 >
-                  <option value={0}>All Users</option>
+                  <option value={0}>Filter by user</option>
                   {users &&
                     users.map((user: any) => (
                       <option key={user.user_id} value={user.user_id}>

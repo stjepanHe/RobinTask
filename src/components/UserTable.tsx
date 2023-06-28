@@ -5,42 +5,109 @@ interface UserTableProps {
   users: User[] | null;
   selectedUser: number | undefined;
 }
+const date = new Date('2019-01-01T15:30:00-0800');
+const newYorkTime = date.toLocaleString('en-US', { timeZone: 'America/New_York' });
+console.log(newYorkTime);
+
 
 export const UserTable = ({ users, selectedUser }: UserTableProps) => {
-
-
   const filteredUsers = users !== null && selectedUser
     ? users.filter((user: any) => user.user_id === selectedUser)
     : users;
 
+  const filterEventsByWorkingHours = (events: any, workingHours: any) => {
+    console.log(workingHours.start, events);
+    const filteredEvents = events.filter((event: any) => {
+      const eventStartTime = new Date(event.start);
+      const eventEndTime = new Date(event.end);
+      const eventStartTimeZone = eventStartTime.toLocaleString('en-US', {
+        timeZone: workingHours.time_zone,
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      });
+
+      const eventEndTimeZone = eventEndTime.toLocaleString('en-US', {
+        timeZone: workingHours.time_zone,
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      });
+
+      console.log(eventStartTimeZone, eventEndTimeZone, '||||', workingHours.start, workingHours.end);
+
+      return (
+        eventStartTimeZone >= workingHours.start &&
+        eventEndTimeZone <= workingHours.end
+
+      );
+    });
+    console.log(filteredEvents);
+    return filteredEvents;
+  };
+
+
   return (
-    <table className="table is-bordered is-striped is-narrow is-hoverable">
+    <table className="table is-bordered is-striped is-narrow is-hoverable transparent-table custom-width">
       <thead>
         <tr>
-          <th id="user-id-header">User ID</th>
           <th id="user-name-header">User Name</th>
           <th id="working-hours-header">Working Hours</th>
-          <th id="events-header">Events</th>
+          <th id="meeting-header">Meetings</th>
+          <th id="time-header">Time</th>
         </tr>
       </thead>
       <tbody>
         {filteredUsers !== null &&
-          filteredUsers.map((user: any) => (
-            <tr key={user.user_id}>
-              <td headers="user-id-header">{user.user_id}</td>
-              <td headers="user-name-header">{user.user_name}</td>
-              <td headers="working-hours-header">
-                {user.working_hours.start} - {user.working_hours.end}
-              </td>
-              <td headers="events-header">
-                <ul>
-                  {user.events.map((event: any) => (
-                    <li key={event.id}>{event.title} ({event.start} - {event.end})</li>
-                  ))}
-                </ul>
-              </td>
-            </tr>
-          ))}
+          filteredUsers.map((user: any) => {
+            const eventsWithinWorkingHours = filterEventsByWorkingHours(
+              user.events,
+              user.working_hours
+            );
+
+            return (
+              <tr key={user.user_id}>
+                <td headers="user-name-header">{user.user_name}</td>
+                <td headers="working-hours-header">{`${user.working_hours.start} - ${user.working_hours.end}`}</td>
+                <td headers="meeting-header">
+                  {eventsWithinWorkingHours.length > 0 ? (
+                    eventsWithinWorkingHours.map((event: any) => (
+                      <ul key={event.id}>
+                        <li>{event.title}</li>
+                      </ul>
+                    ))
+                  ) : (
+                      <p>No meetings within working hours</p>
+                    )}
+                </td>
+                <td headers="time-header">
+                  {eventsWithinWorkingHours.length > 0 ? (
+                    eventsWithinWorkingHours.map((event: any) => (
+                      <ul key={event.id}>
+                        <li>
+                          {new Date(event.start).toLocaleString('en-US', {
+                            timeZone: user.working_hours.time_zone,
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: false,
+                          })} -
+                          {new Date(event.end).toLocaleString('en-US', {
+                            timeZone: user.working_hours.time_zone,
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: false,
+                            timeZoneName: 'short',
+                          })}
+                        </li>
+                      </ul>
+                    ))
+                  ) : (
+                      <p>No meetings within working hours</p>
+                    )}
+                </td>
+              </tr>
+            );
+          })}
       </tbody>
     </table>
   );
