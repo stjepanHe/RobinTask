@@ -5,9 +5,7 @@ interface UserTableProps {
   users: User[] | null;
   selectedUser: number | undefined;
 }
-const date = new Date('2019-01-01T15:30:00-0800');
-const newYorkTime = date.toLocaleString('en-US', { timeZone: 'America/New_York' });
-console.log(newYorkTime);
+
 
 
 export const UserTable = ({ users, selectedUser }: UserTableProps) => {
@@ -16,10 +14,12 @@ export const UserTable = ({ users, selectedUser }: UserTableProps) => {
     : users;
 
   const filterEventsByWorkingHours = (events: any, workingHours: any) => {
-    console.log(workingHours.start, events);
+
     const filteredEvents = events.filter((event: any) => {
       const eventStartTime = new Date(event.start);
       const eventEndTime = new Date(event.end);
+
+
       const eventStartTimeZone = eventStartTime.toLocaleString('en-US', {
         timeZone: workingHours.time_zone,
         hour: '2-digit',
@@ -34,7 +34,6 @@ export const UserTable = ({ users, selectedUser }: UserTableProps) => {
         hour12: false,
       });
 
-      console.log(eventStartTimeZone, eventEndTimeZone, '||||', workingHours.start, workingHours.end);
 
       return (
         eventStartTimeZone >= workingHours.start &&
@@ -42,7 +41,7 @@ export const UserTable = ({ users, selectedUser }: UserTableProps) => {
 
       );
     });
-    console.log(filteredEvents);
+
     return filteredEvents;
   };
 
