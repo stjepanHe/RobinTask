@@ -47,7 +47,7 @@ export const UserTable = ({ users, selectedUser }: UserTableProps) => {
 
 
   return (
-    <table className="table is-bordered is-striped is-narrow is-hoverable transparent-table custom-width">
+    <table className="table is-bordered is-striped is-narrow is-hoverable transparent-table custom-width is-fullwidth is-centered ">
       <thead>
         <tr>
           <th id="user-name-header">User Name</th>

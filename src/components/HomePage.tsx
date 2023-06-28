@@ -31,7 +31,7 @@ export const HomePage = () => {
     <div className="container is-widescreen">
 
       {loading ? (
-        <p className="notification is-info">Loading...</p>
+        <p className="notification is-info is-centered">Loading...</p>
       ) : error ? (
         <p className="notification is-danger">{error}</p>
       ) : (

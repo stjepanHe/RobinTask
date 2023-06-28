@@ -23,11 +23,11 @@ const data = require('./data.json');
 const cors = require('cors');
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: '*',
   methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
   optionsSuccessStatus: 200,
   header: {
-    'Access-Control-Allow-Headers': 'http://localhost:3000',
+    'Access-Control-Allow-Headers': '*',
   },
 };
 
