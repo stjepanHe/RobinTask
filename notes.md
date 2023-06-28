@@ -4,6 +4,6 @@
 
 ## So I separated my server on localhost:8080 as you mentioned and run my application in another terminal on localhost:3000. Header did not want to approve my request so I need to add Corse additional for local request.
 
-## All you need to do is to start frontend with npm start and in another terminal start server with node index.js command inside server directory :)
+## All you need to do start frontend with npm start and in another terminal start server with node index.js command inside server directory :)
 
 ## Additionally I added one more date for Jordan user to test my logic for sorting dates inside of working hours range.

@@ -51,7 +51,7 @@ export const UserTable = ({ users, selectedUser }: UserTableProps) => {
       <thead>
         <tr>
           <th id="user-name-header">User Name</th>
-          <th id="working-hours-header">Working Hours</th>
+
           <th id="meeting-header">Meetings</th>
           <th id="time-header">Time</th>
         </tr>
@@ -67,7 +67,7 @@ export const UserTable = ({ users, selectedUser }: UserTableProps) => {
             return (
               <tr key={user.user_id}>
                 <td headers="user-name-header">{user.user_name}</td>
-                <td headers="working-hours-header">{`${user.working_hours.start} - ${user.working_hours.end}`}</td>
+
                 <td headers="meeting-header">
                   {eventsWithinWorkingHours.length > 0 ? (
                     eventsWithinWorkingHours.map((event: any) => (
