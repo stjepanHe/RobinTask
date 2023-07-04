@@ -1,10 +1,9 @@
 import React from 'react';
-import { User, Event } from '../state/action-creators';
+import { User } from '../state/action-creators';
 
 interface UserTableProps {
   users: User[] | null;
   selectedUser: number | undefined;
-  events: Event[];
 }
 
 
@@ -59,7 +58,7 @@ export const UserTable = ({ users, selectedUser }: UserTableProps) => {
       </thead>
       <tbody>
         {filteredUsers !== null &&
-          filteredUsers.map((user: User) => {
+          filteredUsers.map((user: any) => {
             const eventsWithinWorkingHours = filterEventsByWorkingHours(
               user.events,
               user.working_hours
@@ -71,7 +70,7 @@ export const UserTable = ({ users, selectedUser }: UserTableProps) => {
 
                 <td headers="meeting-header">
                   {eventsWithinWorkingHours.length > 0 ? (
-                    eventsWithinWorkingHours.map((event: Event) => (
+                    eventsWithinWorkingHours.map((event: any) => (
                       <ul key={event.id}>
                         <li>{event.title}</li>
                       </ul>
@@ -82,7 +81,7 @@ export const UserTable = ({ users, selectedUser }: UserTableProps) => {
                 </td>
                 <td headers="time-header">
                   {eventsWithinWorkingHours.length > 0 ? (
-                    eventsWithinWorkingHours.map((event: Event) => (
+                    eventsWithinWorkingHours.map((event: any) => (
                       <ul key={event.id}>
                         <li>
                           {new Date(event.start).toLocaleString('en-US', {
