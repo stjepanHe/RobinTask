@@ -1,9 +1,10 @@
 import React from 'react';
-import { User } from '../state/action-creators';
+import { User, Event } from '../state/action-creators';
 
 interface UserTableProps {
   users: User[] | null;
   selectedUser: number | undefined;
+  events: Event[];
 }
 
 
@@ -70,7 +71,7 @@ export const UserTable = ({ users, selectedUser }: UserTableProps) => {
 
                 <td headers="meeting-header">
                   {eventsWithinWorkingHours.length > 0 ? (
-                    eventsWithinWorkingHours.map((event: any) => (
+                    eventsWithinWorkingHours.map((event: Event) => (
                       <ul key={event.id}>
                         <li>{event.title}</li>
                       </ul>
@@ -81,7 +82,7 @@ export const UserTable = ({ users, selectedUser }: UserTableProps) => {
                 </td>
                 <td headers="time-header">
                   {eventsWithinWorkingHours.length > 0 ? (
-                    eventsWithinWorkingHours.map((event: any) => (
+                    eventsWithinWorkingHours.map((event: Event) => (
                       <ul key={event.id}>
                         <li>
                           {new Date(event.start).toLocaleString('en-US', {

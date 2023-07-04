@@ -10,7 +10,7 @@ interface WorkingHours {
   time_zone: string;
 }
 
-interface Event {
+export interface Event {
   id: number;
   title: string;
   start: string;
