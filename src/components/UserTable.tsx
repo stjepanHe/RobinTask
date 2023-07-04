@@ -58,7 +58,7 @@ export const UserTable = ({ users, selectedUser }: UserTableProps) => {
       </thead>
       <tbody>
         {filteredUsers !== null &&
-          filteredUsers.map((user: any) => {
+          filteredUsers.map((user: User) => {
             const eventsWithinWorkingHours = filterEventsByWorkingHours(
               user.events,
               user.working_hours

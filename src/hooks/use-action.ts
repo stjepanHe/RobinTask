@@ -13,3 +13,5 @@ export const useActions = () => {
     return bindActionCreators(actionCreators, dispatch);
   }, [dispatch]);
 };
+
+//By using useMemo, the binding of action creators to the dispatch function will only occur when the dispatch function changes, optimizing the performance of the useActions hook.
